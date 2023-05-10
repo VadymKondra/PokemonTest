@@ -14,43 +14,56 @@ type pokemonType = {
 };
 
 export const PokemonSectionView = ({ data }) => {
-  const [chosenPokemon, setChosenPokemon] = useState({
-    name: "",
-    sprites: { front_default: "" },
-    types: [],
-  });
+  const [chosenPokemon, setChosenPokemon] = useState(null);
+  const [filterType, setFilterType] = useState(null)
 
   return (
-    <Grid container columns={3} justifyContent={"center"} alignItems={"center"}>
+    <Grid container columns={2} justifyContent={"center"} alignItems={"center"}>
       <Grid item sm={1}>
         <Grid container spacing={2} columns={12}>
           {data.map((pokemon, index) => {
+            if(filterType) {
+              if(pokemon.types.includes(filterType)){
+                return (
+                  <Grid key={pokemon.name + index} item sm={4}>
+                  <Box>
+  
+                      <PokemonCard
+                        setChosenPokemon = {setChosenPokemon}
+                        setFilterType = {setFilterType}
+                        pokemon={pokemon}
+                      />
+                  </Box>
+                </Grid>
+                ) 
+              }
+              else{
+                return
+              }
+
+
+            }
             return (
               <Grid key={pokemon.name + index} item sm={4}>
                 <Box>
-                  <CardActionArea
-                    onClick={() => {
-                      setChosenPokemon(pokemon);
-                    }}
-                  >
+
                     <PokemonCard
-                      pokemonName={pokemon.name}
-                      spriteFront={pokemon.sprites.front_default}
-                      types={pokemon.types}
+                      setChosenPokemon = {setChosenPokemon}
+                      setFilterType = {setFilterType}
+                      pokemon={pokemon}
                     />
-                  </CardActionArea>
                 </Box>
               </Grid>
             );
           })}
         </Grid>
       </Grid>
-      <Grid item sm={1}>
+      <Grid item justifySelf={'center'} sm={1} xs ={2}>
         {chosenPokemon && (
           <PokemonCard
-            pokemonName={chosenPokemon.name}
-            spriteFront={chosenPokemon.sprites.front_default}
-            types={chosenPokemon.types}
+            pokemon={chosenPokemon}
+            setChosenPokemon={() => console.log('hello')}
+            setFilterType={() => console.log('set up me!')}
           />
         )}
       </Grid>
