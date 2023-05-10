@@ -2,7 +2,7 @@ import Typography from "@mui/material/Typography";
 import { useQuery } from "@tanstack/react-query";
 import { Button, Grid } from "@mui/material";
 import axios from "axios";
-import { PokemonSectionView } from "../pokemonListSection";
+import { PokemonListSection } from "./pokemonListSection";
 
 export const PokemonListWrapper = () => {
 
@@ -21,10 +21,13 @@ export const PokemonListWrapper = () => {
 
   return (
     <>
+    <Typography variant="h2" gutterBottom>
+        Pokedex
+      </Typography>
       <Grid container spacing={2} columns={12}>
-        <PokemonSectionView data={pokemons} />
+        <PokemonListSection data={pokemons} />
       </Grid>
-      <Button onClick={handleClick}>Click me!</Button>
+      <Button variant="contained" onClick={handleClick}>Click me!</Button>
     </>
   );
 };

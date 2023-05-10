@@ -1,23 +1,19 @@
-import { PokemonCard } from "./pokemonListSection/views/pokemonCardView";
+import { PokemonCard } from "./views/pokemonCardView";
 import { useState } from "react";
-import { Box, CardActionArea } from "@mui/material";
-import "../App.css";
+import { Box, Typography } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import { PokemonDetailedCardView } from "./views/pokemonDetailedCardView";
 
-type pokemonType = {
-  name: string;
-  types: Array<string>;
-  stats: { name: string; value: number }[];
-  totalMoves: number;
-  weight: number;
-  sprite: string;
-};
 
-export const PokemonSectionView = ({ data }) => {
+export const PokemonListSection = ({ data }) => {
   const [chosenPokemon, setChosenPokemon] = useState(null);
   const [filterType, setFilterType] = useState(null)
 
   return (
+    <>
+      <Typography margin='1.25rem' variant="h2" gutterBottom>
+        filtered by {filterType ? filterType : 'none'}
+      </Typography>
     <Grid container columns={2} justifyContent={"center"} alignItems={"center"}>
       <Grid item sm={1}>
         <Grid container spacing={2} columns={12}>
@@ -29,6 +25,7 @@ export const PokemonSectionView = ({ data }) => {
                   <Box>
   
                       <PokemonCard
+                        filterType={filterType}
                         setChosenPokemon = {setChosenPokemon}
                         setFilterType = {setFilterType}
                         pokemon={pokemon}
@@ -48,6 +45,7 @@ export const PokemonSectionView = ({ data }) => {
                 <Box>
 
                     <PokemonCard
+                      filterType={filterType}
                       setChosenPokemon = {setChosenPokemon}
                       setFilterType = {setFilterType}
                       pokemon={pokemon}
@@ -60,13 +58,13 @@ export const PokemonSectionView = ({ data }) => {
       </Grid>
       <Grid item justifySelf={'center'} sm={1} xs ={2}>
         {chosenPokemon && (
-          <PokemonCard
+          <PokemonDetailedCardView
             pokemon={chosenPokemon}
-            setChosenPokemon={() => console.log('hello')}
-            setFilterType={() => console.log('set up me!')}
           />
         )}
       </Grid>
     </Grid>
+    </>
+    
   );
 };

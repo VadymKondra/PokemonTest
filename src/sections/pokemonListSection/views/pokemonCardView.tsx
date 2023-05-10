@@ -34,12 +34,14 @@ type PokemonCardProps = {
   }
   setChosenPokemon: Dispatch<any>;
   setFilterType: Dispatch<any>;
+  filterType: string
 };
 
 export const PokemonCard: FC<PokemonCardProps> = ({
   pokemon,
   setChosenPokemon,
-  setFilterType
+  setFilterType,
+  filterType
 }) => {
   return (
     <Box
@@ -63,7 +65,16 @@ export const PokemonCard: FC<PokemonCardProps> = ({
             return (
               <Grid key={type} item sm={2}>
                 <Box>
-                    <CardActionArea onClick={() => setFilterType(type)}>
+                    <CardActionArea onClick={() => 
+                        {
+                            if(filterType === type) {
+                                setFilterType(null)
+                            }
+                            else{
+                                setFilterType(type)
+                            }
+                        }
+                        }>
                     <Typography                   sx={{
                     background: `linear-gradient(to right top, ${
                       pokemonTypesColors[type]
