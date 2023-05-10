@@ -34,9 +34,6 @@ export const PokemonListSection = ({ data }) => {
                 </Grid>
                 ) 
               }
-              else{
-                return
-              }
 
 
             }
