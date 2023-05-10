@@ -16,7 +16,7 @@ export const PokemonListWrapper = () => {
     return <Typography>Loading...</Typography>;
   }
 
-
+  console.log('pokemons1', pokemons)
 
 
   return (
@@ -60,12 +60,12 @@ const usePokemonListWrapperContent = () =>{
                 }
             }),
             height: pokemonResponse.data.height,
-            weight: pokemonResponse.data.weight
+            weight: pokemonResponse.data.weight,
+            img: pokemonResponse.data.sprites.front_default
         }
         console.log('pokemonDetailed1', pokemon)
-        return pokemonResponse.data;
+        return pokemon;
   });
-  console.log('pokemons1', pokemons)
 
   }
    

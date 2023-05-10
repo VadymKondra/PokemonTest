@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { Dispatch, FC } from "react";
 import {Box, CardActionArea} from "@mui/material";
 import Typography from "@mui/material/Typography";
 import CardContent from "@mui/material/CardContent";
@@ -27,43 +27,50 @@ const pokemonTypesColors = {
 };
 
 type PokemonCardProps = {
-  pokemonName: string;
-  spriteFront: string;
-  types: any;
+  pokemon: {
+    name: string,
+    img: string,
+    types: Array<string>
+  }
+  setChosenPokemon: Dispatch<any>;
+  setFilterType: Dispatch<any>;
 };
 
 export const PokemonCard: FC<PokemonCardProps> = ({
-  pokemonName,
-  spriteFront,
-  types,
+  pokemon,
+  setChosenPokemon,
+  setFilterType
 }) => {
   return (
     <Box
       margin="1rem"
       bgcolor={"white"}
-      minWidth={100}
+      minWidth={250}
       maxWidth={280}
       height={350}
     >
       <CardContent>
-        <CardMedia
-          sx={{ height: 200 }}
-          image={spriteFront}
-          title={pokemonName}
-        />
-        <Typography color={"black"}>{pokemonName}</Typography>
+        <CardActionArea onClick={() => setChosenPokemon(pokemon)}>
+            <CardMedia
+            sx={{ height: 200 }}
+            image={pokemon.img}
+            title={pokemon.name}
+            />
+        </CardActionArea>
+        <Typography color={"black"}>{pokemon.name}</Typography>
         <Grid justifyContent={"center"} container spacing={2} columns={6}>
-          {types.map((type) => {
+          {pokemon.types.map((type) => {
             return (
-              <Grid key={type.type.name} item sm={2}>
-                <Box
-                  sx={{
+              <Grid key={type} item sm={2}>
+                <Box>
+                    <CardActionArea onClick={() => setFilterType(type)}>
+                    <Typography                   sx={{
                     background: `linear-gradient(to right top, ${
-                      pokemonTypesColors[type.type.name]
+                      pokemonTypesColors[type]
                     }, white)`,
-                  }}
-                >
-                  <Typography color={"black"}>{type.type.name}</Typography>
+                  }} color={"black"}>{type}</Typography>
+                    </CardActionArea>
+
                 </Box>
               </Grid>
             );
